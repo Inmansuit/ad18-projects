@@ -10,17 +10,27 @@ public class Player : MonoBehaviour
 
     float movement = 0f;
 
-    public Text countText;
+    [SerializeField] private Text scoreText;
 
-    private int count;
+    private float score;
 
     public Text winText;
+
+    [SerializeField] private GameObject hexagons;
 
 
     // Update is called once per frame
     void Update()
     {
+        
         movement = Input.GetAxisRaw("Horizontal");
+        SetScoreText();
+        if (score >= 10)
+        {
+            winText.text = "You win!";
+            StartCoroutine(WaitTwoSecondsThenLoad(0));
+
+        }
     }
 
 
@@ -31,7 +41,8 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(WaitTwoSecondsThenLoad(2));
 
     }
 
@@ -40,21 +51,27 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Scoring"))
         {
             other.gameObject.SetActive(false);
-            count = count + 1;
-            SetCountText();
+            
         }
+        
     }
   
 
 
-void SetCountText()
+    void SetScoreText()
     {
-        countText.text = "Count: " + countText.ToString();
-        if ( count >= 5)
-        {
-        winText.text = "You win!";
-        }
+        score += Time.deltaTime;
+        int intScore = (int)score;
+        scoreText.text = "Score: " + intScore.ToString();
     }
+
+    private IEnumerator WaitTwoSecondsThenLoad(int scene)
+    {
+        Time.timeScale = 0.2f;
+        yield return new WaitForSecondsRealtime(1.9f);
+        SceneManager.LoadScene(scene);
+    } 
+
 
  
 }
