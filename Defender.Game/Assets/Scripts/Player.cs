@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     public Text winText;
 
+   // public Color mycolor;
+
     [SerializeField] private GameObject hexagons;
 
 
@@ -42,8 +44,13 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        StartCoroutine(WaitTwoSecondsThenLoad(2));
+        StartCoroutine(WaitTwoSecondsThenLoad(3));
 
+      /* if (collision.transform.tag == "Back")
+        {
+            transform.GetComponent<SpriteRenderer>().color = mycolor;
+        }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,9 +58,9 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Scoring"))
         {
             other.gameObject.SetActive(false);
-            
+          
         }
-        
+      
     }
   
 

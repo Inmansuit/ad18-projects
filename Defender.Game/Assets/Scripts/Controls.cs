@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverMenu : MonoBehaviour
+public class Controls : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -16,11 +16,7 @@ public class GameOverMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
+            SceneManager.LoadScene(2);
         }
     }
 }
